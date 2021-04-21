@@ -30,6 +30,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   # flutter最强大的siwiper, 多种布局方式，无限轮播
   flutter_swiper : ^1.1.6
+  # 网络请求
+  http: ^0.13.1
 
 dev_dependencies:
   flutter_test:
