@@ -20,9 +20,26 @@ class HomeModel {
       this.girdNav,
       this.salesBox});
 
-  // factory HomeModel.formJson(Map<String,dynamic>json){
-  //   return HomeModel(
-  //     config: ConfigModel.fromJson(json['config']),
-  //   );
-  // }
+  factory HomeModel.formJson(Map<String, dynamic> json) {
+    var bannerListJson = json['bannerList'] as List;
+    List<CommonModel> bannerList =
+        bannerListJson.map((i) => CommonModel.fromJson(i)).toList();
+
+    var localNavListJson = json['localNavList'] as List;
+    List<CommonModel> localNavList =
+        localNavListJson.map((i) => CommonModel.fromJson(i)).toList();
+
+    var subNavListJson = json['subNavList'] as List;
+    List<CommonModel> subNavList =
+        subNavListJson.map((i) => CommonModel.fromJson(i)).toList();
+
+    return HomeModel(
+      bannerList: bannerList,
+      localNavList: localNavList,
+      subNavList: subNavList,
+      config: ConfigModel.fromJson(json['config']),
+      girdNav: GirdNavModel.fromJson(json['girdNav']),
+      salesBox: SalesBoxModel.fromJson(json['salesBox']),
+    );
+  }
 }

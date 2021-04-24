@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:flutter_trip/dao/home_dao.dart';
+import 'package:flutter_trip/model/common_model.dart';
+import 'dart:convert';
+
+import 'package:flutter_trip/model/home_model.dart';
+import 'package:flutter_trip/widget/gird_nav.dart';
+import 'package:flutter_trip/widget/local_nav.dart';
 
 const APPBAR_SCROLL_OFFSET = 100;
 
@@ -16,15 +23,62 @@ class _HomePageState extends State<HomePage> {
     'https://dimg04.c-ctrip.com/images/0zg2j120008fxpweqEE0D.jpg',
   ];
 
+  String _resultString = "";
+  List<CommonModel> localNavList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    loadData();
+  }
+
+  loadData() async {
+    try {
+      HomeModel model = await HomeDao.fetch();
+      setState(() {
+        localNavList = model.localNavList;
+      });
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  //第二种方式
+  // loadData() async {
+  //   // try {
+  //   HomeModel model = await HomeDao.fetch();
+  //   setState(() {
+  //     _resultString = json.encode(model.config);
+  //   });
+  // } catch (e) {
+  //   setState(() {
+  //     _resultString = e.toString();
+  //   });
+  // }
+  // }
+
+  //第一种方式
+  // loadData() {
+  //   HomeDao.fetch()
+  //       .then((value) => setState(() {
+  //             _resultString = json.encode(value);
+  //           }))
+  //       .catchError((e) => {
+  //             setState(() {
+  //               _resultString = e.toString();
+  //             })
+  //           });
+  // }
+
   void _onScroll(offset) {
     double alpha = offset / APPBAR_SCROLL_OFFSET;
-    if(alpha<0){
-      alpha=0;
-    }else if(alpha>1){
-      alpha=1;
+    if (alpha < 0) {
+      alpha = 0;
+    } else if (alpha > 1) {
+      alpha = 1;
     }
     setState(() {
-      _appBarAlpha=alpha;
+      _appBarAlpha = alpha;
     });
     print(_appBarAlpha);
   }
@@ -34,6 +88,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xfff2f2f2),
       body: Stack(
         children: [
           MediaQuery.removePadding(
@@ -66,10 +121,14 @@ class _HomePageState extends State<HomePage> {
                       pagination: SwiperPagination(),
                     ),
                   ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
+                    child: LocalNav(localNavList: localNavList),
+                  ),
                   Container(
                     height: 800,
                     child: ListTile(
-                      title: Text('Donkor'),
+                      title: Text(_resultString),
                     ),
                   ),
                 ],

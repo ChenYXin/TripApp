@@ -1,102 +1,117 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_trip/navigator/tab_navigator.dart';
+import 'package:flutter_trip/pages/home_page.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
-//http://www.devio.org/io/flutter_app/json/home_page.json'
 void main() {
   runApp(MyApp());
 }
 
-//高级功能列表下拉刷新与上拉加载更多功能实现
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  List<String> city_name = [
-    "北京",
-    "上海",
-    "广州",
-    "深圳",
-    "新疆",
-    "哈尔滨",
-    "天津",
-    "武汉",
-    "珠海"
-  ];
-
-  ScrollController _scrollController = ScrollController();
-
-  @override
-  void initState() {
-    _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
-        loadData();
-      }
-    });
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('高级功能列表下拉刷新与上拉加载更多功能实现'),
-        ),
-        body: RefreshIndicator(
-          onRefresh: _handlerRefresh,
-          child: ListView(
-            controller: _scrollController,
-            children: _buildList(),
-          ),
-        ),
-      ),
+      home: HomePage(),
     );
-  }
-
-  loadData() async {
-    await Future.delayed(Duration(milliseconds: 1000));
-    setState(() {
-      List<String> list = List<String>.from(city_name);
-      list.addAll(city_name);
-      city_name = list;
-    });
-  }
-
-  List<Widget> _buildList() {
-    return city_name.map((city) => _item(city)).toList();
-  }
-
-  Widget _item(String city) {
-    return Container(
-      height: 80,
-      alignment: Alignment.center,
-      margin: EdgeInsets.all(5),
-      decoration: BoxDecoration(color: Colors.lightBlue),
-      child: Text(
-        city,
-        style: TextStyle(color: Colors.white, fontSize: 20),
-      ),
-    );
-  }
-
-  Future<void> _handlerRefresh() async {
-    await Future.delayed(Duration(milliseconds: 2000));
-    setState(() {
-      city_name = city_name.reversed.toList();
-    });
   }
 }
+
+
+//高级功能列表下拉刷新与上拉加载更多功能实现
+// class MyApp extends StatefulWidget {
+//   @override
+//   _MyAppState createState() => _MyAppState();
+// }
+//
+// class _MyAppState extends State<MyApp> {
+//   List<String> city_name = [
+//     "北京",
+//     "上海",
+//     "广州",
+//     "深圳",
+//     "新疆",
+//     "哈尔滨",
+//     "天津",
+//     "武汉",
+//     "珠海"
+//   ];
+//
+//   ScrollController _scrollController = ScrollController();
+//
+//   @override
+//   void initState() {
+//     _scrollController.addListener(() {
+//       if (_scrollController.position.pixels ==
+//           _scrollController.position.maxScrollExtent) {
+//         loadData();
+//       }
+//     });
+//     super.initState();
+//   }
+//
+//   @override
+//   void dispose() {
+//     _scrollController.dispose();
+//     super.dispose();
+//   }
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: Scaffold(
+//         appBar: AppBar(
+//           title: Text('高级功能列表下拉刷新与上拉加载更多功能实现'),
+//         ),
+//         body: RefreshIndicator(
+//           onRefresh: _handlerRefresh,
+//           child: ListView(
+//             controller: _scrollController,
+//             children: _buildList(),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+//
+//   loadData() async {
+//     await Future.delayed(Duration(milliseconds: 1000));
+//     setState(() {
+//       List<String> list = List<String>.from(city_name);
+//       list.addAll(city_name);
+//       city_name = list;
+//     });
+//   }
+//
+//   List<Widget> _buildList() {
+//     return city_name.map((city) => _item(city)).toList();
+//   }
+//
+//   Widget _item(String city) {
+//     return Container(
+//       height: 80,
+//       alignment: Alignment.center,
+//       margin: EdgeInsets.all(5),
+//       decoration: BoxDecoration(color: Colors.lightBlue),
+//       child: Text(
+//         city,
+//         style: TextStyle(color: Colors.white, fontSize: 20),
+//       ),
+//     );
+//   }
+//
+//   Future<void> _handlerRefresh() async {
+//     await Future.delayed(Duration(milliseconds: 2000));
+//     setState(() {
+//       city_name = city_name.reversed.toList();
+//     });
+//   }
+// }
 
 //基于GridView实现网格布局
 // const CITY_NAME = ["北京", "上海", "广州", "深圳", "新疆", "哈尔滨", "天津", "武汉", "珠海"];
