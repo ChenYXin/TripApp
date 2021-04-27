@@ -72,11 +72,11 @@ class _WebViewState extends State<WebView> {
 
   @override
   void dispose() {
-    super.dispose();
     _onUrlChanged.cancel();
     _onStateChanged.cancel();
     _onHttpError.cancel();
     webViewReference.dispose();
+    super.dispose();
   }
 
   @override
@@ -121,12 +121,16 @@ class _WebViewState extends State<WebView> {
       );
     } else {
       return Container(
+        color: backgroundColor,
+        padding: EdgeInsets.fromLTRB(0, 40, 0, 10),
         //撑满整个屏幕的组件
         child: FractionallySizedBox(
           child: Stack(
             children: [
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.pop(context);
+                },
                 child: Container(
                   margin: EdgeInsets.only(left: 10),
                   child: Icon(
