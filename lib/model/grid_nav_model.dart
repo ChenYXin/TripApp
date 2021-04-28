@@ -2,25 +2,25 @@
 
 import 'package:flutter_trip/model/common_model.dart';
 
-class GirdNavModel {
-  final GirdNavItem hotel;
-  final GirdNavItem flight;
-  final GirdNavItem travel;
+class GridNavModel {
+  final GridNavItem hotel;
+  final GridNavItem flight;
+  final GridNavItem travel;
 
-  GirdNavModel({this.hotel, this.flight, this.travel});
+  GridNavModel({this.hotel, this.flight, this.travel});
 
-  factory GirdNavModel.fromJson(Map<String, dynamic> json) {
+  factory GridNavModel.fromJson(Map<String, dynamic> json) {
     return json != null
-        ? GirdNavModel(
-            hotel: GirdNavItem.fromJson(json['hotel']),
-            flight: GirdNavItem.fromJson(json['flight']),
-            travel: GirdNavItem.fromJson(json['travel']),
+        ? GridNavModel(
+            hotel: GridNavItem.fromJson(json['hotel']),
+            flight: GridNavItem.fromJson(json['flight']),
+            travel: GridNavItem.fromJson(json['travel']),
           )
         : null;
   }
 }
 
-class GirdNavItem {
+class GridNavItem {
   final String startColor;
   final String endColor;
   final CommonModel mainItem;
@@ -29,7 +29,7 @@ class GirdNavItem {
   final CommonModel item3;
   final CommonModel item4;
 
-  GirdNavItem(
+  GridNavItem(
       {this.startColor,
       this.endColor,
       this.mainItem,
@@ -38,8 +38,8 @@ class GirdNavItem {
       this.item3,
       this.item4});
 
-  factory GirdNavItem.fromJson(Map<String, dynamic> json) {
-    return GirdNavItem(
+  factory GridNavItem.fromJson(Map<String, dynamic> json) {
+    return GridNavItem(
       startColor: json['startColor'],
       endColor: json['endColor'],
       // mainItem: json['mainItem'],

@@ -125,6 +125,7 @@ class _WebViewState extends State<WebView> {
         padding: EdgeInsets.fromLTRB(0, 40, 0, 10),
         //撑满整个屏幕的组件
         child: FractionallySizedBox(
+          widthFactor: 1,
           child: Stack(
             children: [
               GestureDetector(

@@ -9,7 +9,7 @@ class HomeModel {
   final List<CommonModel> bannerList;
   final List<CommonModel> localNavList;
   final List<CommonModel> subNavList;
-  final GirdNavModel girdNav;
+  final GridNavModel gridNav;
   final SalesBoxModel salesBox;
 
   HomeModel(
@@ -17,7 +17,7 @@ class HomeModel {
       this.bannerList,
       this.localNavList,
       this.subNavList,
-      this.girdNav,
+      this.gridNav,
       this.salesBox});
 
   factory HomeModel.formJson(Map<String, dynamic> json) {
@@ -38,7 +38,7 @@ class HomeModel {
       localNavList: localNavList,
       subNavList: subNavList,
       config: ConfigModel.fromJson(json['config']),
-      girdNav: GirdNavModel.fromJson(json['girdNav']),
+      gridNav: GridNavModel.fromJson(json['gridNav']),
       salesBox: SalesBoxModel.fromJson(json['salesBox']),
     );
   }

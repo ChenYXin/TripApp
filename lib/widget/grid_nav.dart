@@ -4,43 +4,46 @@ import 'package:flutter_trip/model/grid_nav_model.dart';
 import 'package:flutter_trip/widget/webview.dart';
 
 //网格卡片
-class GirdNav extends StatelessWidget {
-  final GirdNavModel girdNavModel;
+class GridNav extends StatelessWidget {
+  final GridNavModel gridNavModel;
 
   //@required 必填参数
-  GirdNav({Key key, @required this.girdNavModel}) : super(key: key);
+  GridNav({Key key, @required this.gridNavModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return PhysicalModel(color: Colors.transparent,
+    return PhysicalModel(
+      color: Colors.transparent,
       borderRadius: BorderRadius.circular(6),
       clipBehavior: Clip.antiAlias,
       child: Column(
-        children: _girdNavItems(context),
-      ),);
+        children: _gridNavItems(context),
+      ),
+    );
   }
 
-  _girdNavItems(BuildContext context) {
+  _gridNavItems(BuildContext context) {
     List<Widget> items = [];
-    if (girdNavModel == null) return items;
-    if (girdNavModel.hotel != null) {
-      items.add(_girdNavItem(context, girdNavModel.hotel, true));
+    if (gridNavModel == null) return items;
+
+    if (gridNavModel.hotel != null) {
+      items.add(_gridNavItem(context, gridNavModel.hotel, true));
     }
-    if (girdNavModel.flight != null) {
-      items.add(_girdNavItem(context, girdNavModel.flight, false));
+    if (gridNavModel.flight != null) {
+      items.add(_gridNavItem(context, gridNavModel.flight, false));
     }
-    if (girdNavModel.travel != null) {
-      items.add(_girdNavItem(context, girdNavModel.travel, false));
+    if (gridNavModel.travel != null) {
+      items.add(_gridNavItem(context, gridNavModel.travel, false));
     }
 
     return items;
   }
 
-  _girdNavItem(BuildContext context, GirdNavItem girdNavItem, bool isFirst) {
+  _gridNavItem(BuildContext context, GridNavItem gridNavItem, bool isFirst) {
     List<Widget> items = [];
-    items.add(_mainItem(context, girdNavItem.mainItem));
-    items.add(_doubleItem(context, girdNavItem.item1, girdNavItem.item2));
-    items.add(_doubleItem(context, girdNavItem.item3, girdNavItem.item4));
+    items.add(_mainItem(context, gridNavItem.mainItem));
+    items.add(_doubleItem(context, gridNavItem.item1, gridNavItem.item2));
+    items.add(_doubleItem(context, gridNavItem.item3, gridNavItem.item4));
     List<Widget> expandItems = [];
     items.forEach((item) {
       expandItems.add(Expanded(
@@ -48,8 +51,8 @@ class GirdNav extends StatelessWidget {
         flex: 1,
       ));
     });
-    Color startColor = Color(int.parse('0xff' + girdNavItem.startColor));
-    Color endColor = Color(int.parse('0xff' + girdNavItem.endColor));
+    Color startColor = Color(int.parse('0xff' + gridNavItem.startColor));
+    Color endColor = Color(int.parse('0xff' + gridNavItem.endColor));
     return Container(
       height: 88,
       margin: isFirst ? null : EdgeInsets.only(top: 3),
@@ -77,19 +80,19 @@ class GirdNav extends StatelessWidget {
               alignment: AlignmentDirectional.bottomEnd,
             ),
             Container(
-                margin: EdgeInsets.only(top: 11),
-                child: Text(
-                  model.title,
-                  style: TextStyle(fontSize: 14, color: Colors.white),
-                ), ,
+              margin: EdgeInsets.only(top: 11),
+              child: Text(
+                model.title,
+                style: TextStyle(fontSize: 14, color: Colors.white),
+              ),
             ),
           ],
         ),
         model);
   }
 
-  _doubleItem(BuildContext context, CommonModel topItem,
-      CommonModel bottomItem) {
+  _doubleItem(
+      BuildContext context, CommonModel topItem, CommonModel bottomItem) {
     return Column(
       children: [
         Expanded(
@@ -133,13 +136,12 @@ class GirdNav extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>
-                WebView(
-                  url: model.url,
-                  statusBarColor: model.statusBarColor,
-                  title: model.title,
-                  hideAppBar: model.hideAppBar,
-                ),
+            builder: (context) => WebView(
+              url: model.url,
+              statusBarColor: model.statusBarColor,
+              title: model.title,
+              hideAppBar: model.hideAppBar,
+            ),
           ),
         );
       },

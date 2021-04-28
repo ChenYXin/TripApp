@@ -6,7 +6,7 @@ import 'package:flutter_trip/model/grid_nav_model.dart';
 import 'dart:convert';
 
 import 'package:flutter_trip/model/home_model.dart';
-import 'package:flutter_trip/widget/gird_nav.dart';
+import 'package:flutter_trip/widget/grid_nav.dart';
 import 'package:flutter_trip/widget/local_nav.dart';
 
 const APPBAR_SCROLL_OFFSET = 100;
@@ -26,11 +26,12 @@ class _HomePageState extends State<HomePage> {
 
   String _resultString = "";
   List<CommonModel> localNavList = [];
-  GirdNavModel girdNavModel;
+  GridNavModel gridNavModel;
 
   @override
   void initState() {
     super.initState();
+    print('initState');
     loadData();
   }
 
@@ -39,7 +40,7 @@ class _HomePageState extends State<HomePage> {
       HomeModel model = await HomeDao.fetch();
       setState(() {
         localNavList = model.localNavList;
-        girdNavModel = model.girdNav;
+        gridNavModel = model.gridNav;
       });
     } catch (e) {
       print(e.toString());
@@ -130,8 +131,8 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Padding(
                     padding: EdgeInsets.fromLTRB(7, 0, 7, 4),
-                    child: GirdNav(
-                      girdNavModel: girdNavModel,
+                    child: GridNav(
+                      gridNavModel: gridNavModel,
                     ),
                   ),
 
